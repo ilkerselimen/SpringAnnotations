@@ -2,6 +2,7 @@ package com.tpe.app;
 
 import com.tpe.AppConfiguration;
 import com.tpe.domain.Message;
+import com.tpe.repository.FileRepository;
 import com.tpe.service.MailService;
 import com.tpe.service.MessageService;
 import com.tpe.service.SmsService;
@@ -25,13 +26,18 @@ public class MyApplication {
 //                                      // spring container dan rica ettik, bize hazir getirdi.
 
 //        MessageService service = context.getBean(SmsService.class);
-        MessageService service = context.getBean("smsservice",MessageService.class);
-        service.sendMessage(message);
+//        MessageService service = context.getBean("smsservice",MessageService.class);
+//        service.sendMessage(message);
 
         // interface i implemente eden birden fazla component ile isaretlenmis class varsa
         // hangisini almasi gerektigini belirtmemiz gerekir.
 
-        context.close(); // contextden obje isteyemeyiz.
+        MessageService service = context.getBean(MailService.class);
+        service.sendMessage(message);
+        service.saveMessage(message); // dbrepoyu da newlemedik.
+        // enjekte edilecek obje secenegi birden fazla ise qualifier ile belirtilmeli
+
+        context.close(); // contextden obje isteyemeyiz, beanler sonlandirilir, getBean ile bean talep edemeyiz.
 
 
     }
