@@ -9,9 +9,26 @@ import org.springframework.stereotype.Component;
 @Component // bu classdan springin obje uretmesini istiyoruz.
 public class MailService implements  MessageService{
 
-    @Autowired // reponun objesini classa enjekte eder.
-    @Qualifier("fileRepository")
+    // field injection
+//    @Autowired // reponun objesini classa enjekte eder.
+//    @Qualifier("fileRepository")
+//    private Repo repo;
+
+    //setter injection
+//    private Repo repo;
+//    @Autowired
+//    @Qualifier("fileRepository")
+//    public void setRepo(Repo repo) {
+//        this.repo = repo;
+//    }
+
+    //constructor injection: daha guvenli, daha anlasilir, test etmek daha kolay.
     private Repo repo;
+
+    @Autowired
+    public MailService(@Qualifier("fileRepository")Repo repo) {
+        this.repo = repo;
+    }
 
     @Override
     public void sendMessage(Message message) {

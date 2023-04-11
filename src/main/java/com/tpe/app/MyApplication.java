@@ -8,6 +8,8 @@ import com.tpe.service.MessageService;
 import com.tpe.service.SmsService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Random;
+
 public class MyApplication {
 
     public static void main(String[] args) {
@@ -36,6 +38,10 @@ public class MyApplication {
         service.sendMessage(message);
         service.saveMessage(message); // dbrepoyu da newlemedik.
         // enjekte edilecek obje secenegi birden fazla ise qualifier ile belirtilmeli
+
+//        Random random = new Random(); --> Spring bizim icin olustursun.
+        Random random = context.getBean(Random.class);
+        System.out.println(random.nextInt(100));
 
         context.close(); // contextden obje isteyemeyiz, beanler sonlandirilir, getBean ile bean talep edemeyiz.
 
