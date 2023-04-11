@@ -4,9 +4,11 @@ import com.tpe.domain.Message;
 import com.tpe.repository.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component // bu classdan springin obje uretmesini istiyoruz.
+@Scope("prototype")
 public class MailService implements  MessageService{
 
     // field injection

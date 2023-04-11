@@ -34,14 +34,32 @@ public class MyApplication {
         // interface i implemente eden birden fazla component ile isaretlenmis class varsa
         // hangisini almasi gerektigini belirtmemiz gerekir.
 
-        MessageService service = context.getBean(MailService.class);
-        service.sendMessage(message);
-        service.saveMessage(message); // dbrepoyu da newlemedik.
+//        MessageService service = context.getBean(MailService.class);
+//        service.sendMessage(message);
+//        service.saveMessage(message); // dbrepoyu da newlemedik.
         // enjekte edilecek obje secenegi birden fazla ise qualifier ile belirtilmeli
 
 //        Random random = new Random(); --> Spring bizim icin olustursun.
-        Random random = context.getBean(Random.class);
-        System.out.println(random.nextInt(100));
+//        Random random = context.getBean(Random.class);
+//        System.out.println(random.nextInt(100));
+
+        MessageService service = context.getBean(MailService.class);
+        MessageService service2 = context.getBean(MailService.class);
+
+        // Spring de beanlerin scope u defaultta Singleton dir.
+        // Singleton: tum uygulama icin sadece tek bir bean olusturulur.
+        // Prototype: her obje istendiginde yeni bir bean olusturulur.
+
+        if (service==service2){
+            System.out.println("Ayni reference li objectler");
+            System.out.println(service);
+            System.out.println(service2);
+        }else{
+            System.out.println("Farkli reference li objectler");
+            System.out.println(service);
+            System.out.println(service2);
+        }
+
 
         context.close(); // contextden obje isteyemeyiz, beanler sonlandirilir, getBean ile bean talep edemeyiz.
 
