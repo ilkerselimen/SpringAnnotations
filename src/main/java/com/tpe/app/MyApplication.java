@@ -60,8 +60,15 @@ public class MyApplication {
             System.out.println(service2);
         }
 
-        MessageService service3 = context.getBean(SmsService.class);
+        SmsService service3 = context.getBean(SmsService.class);
         service3.sendMessage(message);
+        service3.printContact(); // value ile uyg disindan degerleri aldik
+        service3.printProperties();
+
+//        String[] beanNames=context.getBeanDefinitionNames();
+//        for (String name:beanNames){
+//            System.out.println(name);
+//        }
 
 
         context.close(); // contextden obje isteyemeyiz, beanler sonlandirilir, getBean ile bean talep edemeyiz.
