@@ -47,8 +47,8 @@ public class MyApplication {
         MessageService service2 = context.getBean(MailService.class);
 
         // Spring de beanlerin scope u defaultta Singleton dir.
-        // Singleton: tum uygulama icin sadece tek bir bean olusturulur.
-        // Prototype: her obje istendiginde yeni bir bean olusturulur.
+        // Singleton: tum uygulama icin sadece tek bir bean olusturulur, beanin tum life cycle indan Spring sorumludur.
+        // Prototype: her obje istendiginde yeni bir bean olusturulur, beanin destroy edilmesinden Spring sorumlu DEGILDIR.
 
         if (service==service2){
             System.out.println("Ayni reference li objectler");
@@ -60,8 +60,13 @@ public class MyApplication {
             System.out.println(service2);
         }
 
+        MessageService service3 = context.getBean(SmsService.class);
+        service3.sendMessage(message);
+
 
         context.close(); // contextden obje isteyemeyiz, beanler sonlandirilir, getBean ile bean talep edemeyiz.
+
+        System.out.println("context in close methodundan sonra");
 
 
     }
